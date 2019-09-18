@@ -47,8 +47,9 @@
         (let [kids (remove-previous-states
                     (make-children current-node) frontier (keys came-from))]
           (recur
-            (vec (reverse (pq/priority-queue #(heuristic % goal?) :element (add-children
+            (reverse (pq/priority-queue #(heuristic % [0 0]) :elements 
+              (add-children
             kids
-            (rest frontier)))))
+            (rest frontier))))
            (reduce (fn [cf child] (assoc cf child current-node)) came-from kids)
            (inc num-calls)))))))

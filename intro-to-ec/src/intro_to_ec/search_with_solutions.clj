@@ -39,6 +39,10 @@
         :else
         (let [kids (remove-previous-states
                     (make-children current-node) frontier (keys came-from))]
+          (println current-node)
+          (println (make-children current-node))
+          (println (keys came-from))
+          (println kids)
           (recur
            (add-children
             kids
