@@ -57,6 +57,11 @@
       [x -1])
     [[2 0]])))
 
+(defn heuristic 
+  [a]
+(+ (Math/abs (first a)) (Math/abs (second a)))
+  )
+
 (defn make-grid-problem
   "Create an instance of a simple problem of moving on a grid towards
    the origin. The ranges specify the bounds on the grid world, and the
@@ -64,4 +69,5 @@
    or crossed."
   [min-range max-range wall-set]
   {:goal? origin-goal?
-   :make-children (partial grid-children min-range max-range wall-set)})
+   :make-children (partial grid-children min-range max-range wall-set)
+   :heuristic heuristic})

@@ -24,15 +24,11 @@
     [node]
     (conj (generate-path came-from (get came-from node)) node)))
 
-(defn heuristic 
-  [a, b]
-(+ (Math/abs (- (first a) (first b))) (Math/abs (- (second a) (second b))))
-  )
 ;; Priority Queue
 ;; https://github.com/shamsimam/clj-priority-queue
 (defn search
   [{:keys [get-next-node add-children]}
-   {:keys [goal? make-children]}
+   {:keys [goal? make-children heuristic]}
    start-node max-calls]
   (loop [frontier [start-node]
          came-from {start-node :start-node}
@@ -47,7 +43,7 @@
         (let [kids (remove-previous-states
                     (make-children current-node) frontier (keys came-from))]
           (recur
-            (reverse (pq/priority-queue #(heuristic % [0 0]) :elements 
+            (reverse (pq/priority-queue #(heuristic %) :elements 
               (add-children
             kids
             (rest frontier))))
