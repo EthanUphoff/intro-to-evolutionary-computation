@@ -59,4 +59,4 @@
            (reduce (fn [cf child] (assoc cf child current-node)) came-from kids)
            (inc num-calls)
           ;; this is for eventually adding to cost so far
-          (reduce (fn [cf child] (assoc cf child (+ 1 (get cost-so-far current-node )))) cost-so-far kids)))))))
+          (reduce (fn [cost child] (assoc cost child (+ 1 (get cost-so-far current-node )))) cost-so-far kids)))))))
