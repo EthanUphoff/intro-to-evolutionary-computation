@@ -38,11 +38,11 @@
          came-from {start-node :start-node}
          num-calls 0
          cost-so-far {start-node 0}]
-    ;;(println num-calls ": " frontier)
+    (println num-calls ": " frontier)
     ;;(println came-from)
-    (println "")
-    (println cost-so-far)
-    (println "")
+    ;;(println "")
+    ;;(println cost-so-far)
+    ;;(println "")
     ;;(println (get cost-so-far came-from))
     (let [current-node (get-next-node frontier)]
       (cond
