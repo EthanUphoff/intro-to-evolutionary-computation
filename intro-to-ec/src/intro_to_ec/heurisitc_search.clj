@@ -44,7 +44,7 @@
         (let [kids (remove-previous-states
                     (make-children current-node) frontier (keys came-from))]
           (recur
-            (reverse (pq/priority-queue #(heuristic % (get cost-so-far current-node )) :elements 
+            (reverse (pq/priority-queue #(heuristic % (if (nil? (get cost-so-far %)) (+ (get cost-so-far current-node) 1) (get cost-so-far %))) :elements 
               (add-children
             kids
             (rest frontier))))
