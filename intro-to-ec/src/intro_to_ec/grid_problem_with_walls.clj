@@ -66,6 +66,10 @@
   [a & args]
 (if (even? (second a)) (+ (heuristic a) 2) (heuristic a)))
 
+(defn odd-and-even-heuristic
+  [a & args]
+(if (and (even? (first a)) (odd? (second a))) (+ (heuristic a) 2) (heuristic a)))
+
 (defn astar [a cost] (+ (heuristic a) cost))
 
 (defn make-grid-problem
