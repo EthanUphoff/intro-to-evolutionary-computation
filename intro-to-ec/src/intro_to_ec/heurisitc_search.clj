@@ -1,4 +1,4 @@
-(ns intro-to-ec.heuristic_search
+(ns intro-to-ec.heuristic-search
   (:require [clojure.set :as cset]
     [shams.priority-queue :as pq]))
 
@@ -32,7 +32,8 @@
    start-node max-calls]
   (loop [frontier [start-node]
          came-from {start-node :start-node}
-         num-calls 0]
+         num-calls 0
+         cost-so-far {start-node 0}]
     (println num-calls ": " frontier)
     (println came-from)
     (let [current-node (get-next-node frontier)]
@@ -43,9 +44,11 @@
         (let [kids (remove-previous-states
                     (make-children current-node) frontier (keys came-from))]
           (recur
-            (reverse (pq/priority-queue #(heuristic %) :elements 
+            (reverse (pq/priority-queue #(heuristic % (get cost-so-far current-node )) :elements 
               (add-children
             kids
             (rest frontier))))
            (reduce (fn [cf child] (assoc cf child current-node)) came-from kids)
-           (inc num-calls)))))))
+           (inc num-calls)
+          ;; this is for eventually adding to cost so far
+          (reduce (fn [cost child] (assoc cost child (+ 1 (get cost-so-far current-node )))) cost-so-far kids)))))))

@@ -58,16 +58,18 @@
     [[2 0]])))
 
 (defn heuristic 
-  [a]
+  [a & args]
 (+ (Math/abs (first a)) (Math/abs (second a)))
   )
+
+(defn astar [a cost] (+ (heuristic a) cost))
 
 (defn make-grid-problem
   "Create an instance of a simple problem of moving on a grid towards
    the origin. The ranges specify the bounds on the grid world, and the
    `wall-set` is a (possibly empty) set of positions that can't be entered
    or crossed."
-  [min-range max-range wall-set]
+  [min-range max-range wall-set search]
   {:goal? origin-goal?
    :make-children (partial grid-children min-range max-range wall-set)
-   :heuristic heuristic})
+   :heuristic search})
