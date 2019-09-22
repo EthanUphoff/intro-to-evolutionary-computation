@@ -62,6 +62,10 @@
 (+ (Math/abs (first a)) (Math/abs (second a)))
   )
 
+(defn even-heuristic
+  [a & args]
+(if (even? (second a)) (+ (heuristic a) 2) (heuristic a)))
+
 (defn astar [a cost] (+ (heuristic a) cost))
 
 (defn make-grid-problem
