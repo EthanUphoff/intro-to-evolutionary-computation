@@ -62,15 +62,19 @@
 (+ (Math/abs (first a)) (Math/abs (second a)))
   )
 
+;; this is our intended simple heuristic
 (defn even-heuristic
   [a & args]
-(if (even? (second a)) (+ (heuristic a) 2) (heuristic a)))
+(if (even? (second a)) (+ (heuristic a) 5) (heuristic a)))
 
+;; this is just an extra one for fun, plz dont grade
 (defn odd-and-even-heuristic
   [a & args]
 (if (and (even? (first a)) (odd? (second a))) (+ (heuristic a) 2) (heuristic a)))
 
 (defn astar [a cost] (+ (heuristic a) cost))
+;;this is how we were trying to fix even-heuristic ###DOES NOT WORK###
+(defn even-astar [a cost] (if (even? (second a)) (astar [[(first a) (second a)] (+ cost 5)]) (astar [[(first a) (second a)] cost])))
 
 (defn make-grid-problem
   "Create an instance of a simple problem of moving on a grid towards

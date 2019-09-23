@@ -41,8 +41,9 @@
         (goal? current-node) (generate-path came-from current-node)
         (= num-calls max-calls) :max-calls-reached
         :else
-        (let [kids (remove-previous-states
-                    (make-children current-node) frontier (keys came-from))]
+        (let [kids (if (< (cost-so-far current-node) (cost-so-far (first frontier))) (= (cost-so-far (first frontier)) (cost-so-far current-node))
+                    (remove-previous-states
+                    (make-children current-node) frontier (keys came-from)))]
           (recur
             (reverse (pq/priority-queue #(heuristic % (if (nil? (get cost-so-far %)) (+ (get cost-so-far current-node) 1) (get cost-so-far %))) :elements 
               (add-children
