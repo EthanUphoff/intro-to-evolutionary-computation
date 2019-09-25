@@ -63,12 +63,24 @@
   )
 
 (defn even-heuristic
-  [a & args]
-(if (even? (second a)) (+ (heuristic a) 2) (heuristic a)))
+  "This heuristic adds a cost of 2 to each even y value"
+  [a cost]
+(if (even? (second a)) (+ (heuristic a) 2 cost) (+ (heuristic a) cost)))
 
 (defn odd-and-even-heuristic
-  [a & args]
-(if (and (even? (first a)) (odd? (second a))) (+ (heuristic a) 2) (heuristic a)))
+  "This heuristic avoids coorindates where x is even and y is odd"
+  [a cost]
+(if (and (even? (first a)) (odd? (second a))) (+ (heuristic a) 2 cost) (+ (heuristic a) cost)))
+
+(defn reverse-astar-heuristic
+  "This heuristic is reverse astar, it avoids the solution"
+  [a cost]
+(- (- 0 (heuristic a)) cost))
+
+(defn random-heuristic
+  "This heuristic adds a random value between 0 and 100 to the cost"
+  [a cost]
+(+ (heuristic a) (rand-int 100)))
 
 (defn astar [a cost] (+ (heuristic a) cost))
 
